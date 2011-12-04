@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="/cats")
 public class CatController {
 
-	// Err, that's only for the demo application. Don't do this in real applications :)
+	// FIXME: Err, that's only for the demo application. Don't do this in real applications :)
 	public static final Map<Long, FunnyCat> cats = new ConcurrentHashMap<Long, FunnyCat>();
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -55,6 +55,7 @@ public class CatController {
 		if (result.hasErrors()) {
 			return "cats/main";
 		}
+		// TBD: access as static variable
 		this.cats.put(cat.getId(), cat);
 		return "redirect:/cats/view/" + cat.getId();
 	}
