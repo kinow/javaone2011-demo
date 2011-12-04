@@ -6,27 +6,23 @@ public class FunnyCat implements Serializable {
 
 	private static final long serialVersionUID = 8432268916110300585L;
 	
-	private Integer id;
+	private Long id;
 	private String fileName;
 	private String fileType;
-	private Double rating;
+	private Integer total;
+	private Integer votes;
 
 	public FunnyCat() {
 		super();
+		this.total = 0;
+		this.votes = 0;
 	}
 	
-	public FunnyCat(Integer id, String fileName, String fileType, Double rating) {
-		this.id = id;
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.rating = rating;
-	}
-
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -47,11 +43,29 @@ public class FunnyCat implements Serializable {
 	}
 
 	public Double getRating() {
-		return rating;
+		Integer votes = getVotes();
+		Integer total = getTotal();
+		if( votes != null && votes > 0 ) 
+			return (double)votes/total;
+		else
+			return 0.0;
 	}
 
-	public void setRating(Double rating) {
-		this.rating = rating;
+	public Integer getTotal() {
+		return total;
+	}
+
+	public Integer getVotes() {
+		return votes;
+	}
+	
+	public void setVotes(Integer votes) {
+		this.votes = votes;
+	}
+	
+	public void addVote(Integer vote) {
+		this.votes += vote;
+		this.total++;
 	}
 
 	@Override
