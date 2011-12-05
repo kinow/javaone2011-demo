@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="funnycats">
+  <bannerLeft>
+    <name>funnycats</name>
+  </bannerLeft>
+  <body>
+  
+    <links>
+      <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
+    </links>
+
+    <menu name="Reference">
+      <item name="Introduction" href="index.html"/>
+    </menu>
+    
+    <menu ref="reports" />
+
+  </body>
+  
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-stylus-skin</artifactId>
+    <version>1.2</version>
+  </skin>
+  
+</project>
