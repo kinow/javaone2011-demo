@@ -182,20 +182,41 @@ Bruno P. Kinoshita</description>
 					</filesets>
 				</configuration>
 			</plugin>
-			<plugin>
+			
+			<!-- plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<instrumentation>
-						<ignores>
-							<ignore>org.tap4j.ext.*</ignore>
-						</ignores>
-						<excludes>
-							<exclude>org/tap4j/ext/**/*.class</exclude>
-						</excludes>
-					</instrumentation>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
 				</configuration>
+				<executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>cobertura</goal>
+                        </goals>
+                    </execution>
+                </executions>
+			</plugin -->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>emma-maven-plugin</artifactId>
+				<version>1.0-alpha-3</version>
+				<executions>
+					<execution>
+						<id></id>
+						<phase>prepare-package</phase>
+						<goals>
+						    <goal>emma</goal>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			
 			<plugin>
@@ -297,5 +318,4 @@ Bruno P. Kinoshita</description>
 		</plugins>
 	</build>
 
-	<url>http://www.tupilabs.com</url>
 </project>
