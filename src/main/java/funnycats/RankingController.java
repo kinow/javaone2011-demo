@@ -23,6 +23,9 @@
  */
 package funnycats;
 
+import java.util.Comparator;
+import java.util.TreeMap;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +42,10 @@ public class RankingController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String getRanking(Model model) {
-		model.addAttribute("cats", CatController.cats);
+		Comparator<Long> comparator = new ValueComparator();
+		TreeMap<Long, FunnyCat> orderedMap = new TreeMap<Long, FunnyCat>(comparator);
+		orderedMap.putAll(CatController.cats);
+		model.addAttribute("cats", orderedMap);
 		return "ranking";
 	}
 	
@@ -48,6 +54,17 @@ public class RankingController {
 		FunnyCat cat = CatController.cats.get(catId);
 		cat.addVote(value);
 		return "redirect:/cats/" + catId;
+	}
+	
+	class ValueComparator implements Comparator<Long> {
+
+		/* (non-Javadoc)
+		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+		 */
+		public int compare(Long arg0, Long arg1) {
+			return CatController.cats.get(arg0).getRating().compareTo(CatController.cats.get(arg1).getRating());
+		}
+		
 	}
 	
 }
