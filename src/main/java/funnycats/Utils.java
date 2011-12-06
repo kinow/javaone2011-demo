@@ -61,7 +61,7 @@ public class Utils {
 	};
 	
 	public static List<FunnyCat> getFunnyCats( final File directory ) {
-		final List<FunnyCat> funnyCats = new ArrayList<FunnyCat>();
+		final List funnyCats = new ArrayList();
 		
 		File[] pictures = directory.listFiles(pictureFileNameFilter);
 		
