@@ -26,7 +26,7 @@ public class FunnyServletContextListener implements ServletContextListener {
 		try {
 			this.configuration = new PropertiesConfiguration("funnycats.properties");
 		} catch (ConfigurationException e) {
-			throw new RuntimeException(e);
+			//throw new RuntimeException(e);
 		}
 		
 		ServletContext ctx = event.getServletContext();
