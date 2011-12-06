@@ -60,8 +60,8 @@ public class RankingController {
 		return "redirect:/cats/" + catId;
 	}
 
-	private Map sortByRating(Map<?, ?> unsortMap) {
-		List list = new LinkedList(unsortMap.entrySet());
+	private Map sortByRating(Map<?, ?> unsortedMap) {
+		List list = new LinkedList(unsortedMap.entrySet());
 
 		// sort list based on comparator
 		Collections.sort(list, new Comparator() {
@@ -70,6 +70,7 @@ public class RankingController {
 						.compareTo(((Map.Entry) (o2)).getValue());
 			}
 		});
+		Collections.reverse(list);
 
 		// put sorted list into map again
 		Map sortedMap = new LinkedHashMap();

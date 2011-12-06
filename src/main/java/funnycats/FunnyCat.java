@@ -91,7 +91,13 @@ public class FunnyCat implements Serializable, Comparable<FunnyCat> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(FunnyCat other) {
-		return this.getRating().compareTo(other.getRating());
+		if(this.getRating() > other.getRating()) {
+			return 1;
+		} else if ( this.getRating() < other.getRating()) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 }
