@@ -2,7 +2,7 @@ package funnycats;
 
 import java.io.Serializable;
 
-public class FunnyCat implements Serializable {
+public class FunnyCat implements Serializable, Comparable<FunnyCat> {
 
 	private static final long serialVersionUID = 8432268916110300585L;
 	
@@ -85,6 +85,13 @@ public class FunnyCat implements Serializable {
 	@Override
 	public int hashCode() {
 		return "FunnyCat".hashCode() + this.getId().hashCode();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(FunnyCat other) {
+		return this.getRating().compareTo(other.getRating());
 	}
 
 }

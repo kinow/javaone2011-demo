@@ -23,8 +23,13 @@
  */
 package funnycats;
 
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,34 +42,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since 0.1
  */
 @Controller
-@RequestMapping(value="/ranking")
+@RequestMapping(value = "/ranking")
 public class RankingController {
 
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String getRanking(Model model) {
-		Comparator<Long> comparator = new ValueComparator();
-		TreeMap<Long, FunnyCat> orderedMap = new TreeMap<Long, FunnyCat>(comparator);
-		orderedMap.putAll(CatController.cats);
-		model.addAttribute("cats", orderedMap);
+		Map sortedMap = this.sortByRating(CatController.cats);
+		model.addAttribute("cats", sortedMap);
 		return "ranking";
 	}
-	
-	@RequestMapping(value="{catId}/{value}", method=RequestMethod.GET)
-	public String vote(@PathVariable(value="catId") Long catId, @PathVariable(value="value") Integer value, Model model) {
+
+	@RequestMapping(value = "{catId}/{value}", method = RequestMethod.GET)
+	public String vote(@PathVariable(value = "catId") Long catId,
+			@PathVariable(value = "value") Integer value, Model model) {
 		FunnyCat cat = CatController.cats.get(catId);
 		cat.addVote(value);
 		return "redirect:/cats/" + catId;
 	}
-	
-	class ValueComparator implements Comparator<Long> {
 
-		/* (non-Javadoc)
-		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-		 */
-		public int compare(Long arg0, Long arg1) {
-			return CatController.cats.get(arg0).getRating().compareTo(CatController.cats.get(arg1).getRating());
+	private Map sortByRating(Map<?, ?> unsortMap) {
+		List list = new LinkedList(unsortMap.entrySet());
+
+		// sort list based on comparator
+		Collections.sort(list, new Comparator() {
+			public int compare(Object o1, Object o2) {
+				return ((Comparable) ((Map.Entry) (o1)).getValue())
+						.compareTo(((Map.Entry) (o2)).getValue());
+			}
+		});
+
+		// put sorted list into map again
+		Map sortedMap = new LinkedHashMap();
+		for (Iterator it = list.iterator(); it.hasNext();) {
+			Map.Entry entry = (Map.Entry) it.next();
+			sortedMap.put(entry.getKey(), entry.getValue());
 		}
-		
+		return sortedMap;
 	}
-	
+
 }
