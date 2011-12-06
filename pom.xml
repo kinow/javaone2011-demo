@@ -128,7 +128,7 @@ Bruno P. Kinoshita</description>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>mvc-basic</warName>
+					<warName>funnycats</warName>
 				</configuration>
 			</plugin>
 			<plugin>
