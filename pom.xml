@@ -13,7 +13,7 @@ Application used in session: Measuring the quality of your code during CI
 Bruno P. Kinoshita</description>
 
 	<properties>
-		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<org.springframework.version>5.3.18</org.springframework.version>
 		<org.slf4j.version>1.6.1</org.slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
